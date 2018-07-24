@@ -29,9 +29,9 @@ if (WIN32)
   #    -DBoost_USE_STATIC_LIBS:BOOL=ON
   #    -DBoost_USE_STATIC_RUNTIME:BOOL=OFF)
   #include(ExternalProject)
-  #ExternalProject_Add(BBSCoin
-  #    SOURCE_DIR ${CMAKE_SOURCE_DIR}/bbscoin
-  #    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/BBSCoin
+  #ExternalProject_Add(BitcoinNero
+  #    SOURCE_DIR ${CMAKE_SOURCE_DIR}/bitcoinnero
+  #    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/BitcoinNero
   #    CMAKE_ARGS 
   #        -DSTATIC:BOOL=OFF
   #        -DBoost_USE_STATIC_LIBS:BOOL=ON
@@ -79,11 +79,11 @@ if (WIN32)
   if(MSVC)
     add_definitions(/D_CRT_SECURE_NO_WARNINGS /D_WIN32_WINNT=0x0600)
     include_directories(
-        bbscoin/src/Platform/msc
-        bbscoin/src/Platform/Windows
+        bitcoinnero/src/Platform/msc
+        bitcoinnero/src/Platform/Windows
         Platform/Windows)
     set(BUILD_PLATFORM WIN32)
-    set(BUILD_RESOURCES src/bbscoinwallet.rc)
+    set(BUILD_RESOURCES src/bitcoinnerowallet.rc)
     set(Qt5_MAIN Qt5::WinMain)
   endif()
 
@@ -100,9 +100,9 @@ if (WIN32)
   target_include_directories(${PROJECT_NAME} PUBLIC
       include
       src
-      bbscoin/include
-      bbscoin/src
-      bbscoin/external/rocksdb/include
+      bitcoinnero/include
+      bitcoinnero/src
+      bitcoinnero/external/rocksdb/include
       ${Boost_INCLUDE_DIR})
   target_link_libraries(${PROJECT_NAME}
       ${Qt5_MAIN}
@@ -305,7 +305,7 @@ else()
 
     set(PLATFORM_DIR Windows)
     set(BUILD_PLATFORM WIN32)
-    set(BUILD_RESOURCES src/bbscoinwallet.rc)
+    set(BUILD_RESOURCES src/bitcoinnerowallet.rc)
     set(QTMAIN Qt5::WinMain)
 
   elseif (UNIX)
@@ -343,8 +343,8 @@ else()
       set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -maes -D_DARWIN_C_SOURCE")
       set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Cocoa -framework OpenGL -framework CoreFoundation -framework Carbon -framework IOKit -L/usr/lib")
 
-      set(MACOSX_BUNDLE_ICON_FILE bbscoin.icns)
-      set(APPLICATION_ICON src/images/bbscoin.icns)
+      set(MACOSX_BUNDLE_ICON_FILE bitcoinnero.icns)
+      set(APPLICATION_ICON src/images/bitcoinnero.icns)
       set_source_files_properties(${APPLICATION_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
       set(BUILD_PLATFORM MACOSX_BUNDLE)
@@ -388,8 +388,8 @@ endif()
 # Installation
 set(CPACK_PACKAGE_NAME ${CN_PROJECT_NAME})
 set(CPACK_PACKAGE_VERSION ${CN_VERSION})
-set(CPACK_PACKAGE_VENDOR "BBSCoin")
-set(CPACK_PACKAGE_CONTACT "https://www.bbscoin.xyz")
+set(CPACK_PACKAGE_VENDOR "BitcoinNero")
+set(CPACK_PACKAGE_CONTACT "http://www.btcnero.org/")
 set(CPACK_STRIP_FILES ON)
 if (APPLE)
     set(CPACK_GENERATOR DragNDrop)
@@ -400,8 +400,8 @@ elseif (UNIX)
 
     install(PROGRAMS build/${PROJECT_NAME} DESTINATION bin
     PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
-    install(FILES src/bbscoinwallet.desktop DESTINATION share/applications)
-    install(FILES src/images/bbscoin.png DESTINATION share/pixmaps RENAME bbscoin.png)
+    install(FILES src/bitcoinnerowallet.desktop DESTINATION share/applications)
+    install(FILES src/images/bitcoinnero.png DESTINATION share/pixmaps RENAME bitcoinnero.png)
 
     if (NOT RPMBUILD)
         set(CPACK_GENERATOR DEB)
@@ -410,10 +410,10 @@ elseif (UNIX)
         SET(CPACK_PACKAGE_VERSION_MAJOR "${CN_MAJOR_VERSION}")
         SET(CPACK_PACKAGE_VERSION_MINOR "${CN_MINOR_VERSION}")
         SET(CPACK_PACKAGE_VERSION_PATCH "${CN_PATCH_VERSION}")
-        set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_VENDOR} <dev@bbscoin.xyz>")
+        set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_VENDOR} <support@btcnero.org>")
         set(CPACK_DEBIAN_PACKAGE_SECTION Office)
         set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-        set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "BBSCoin Wallet - A cryptocurrency for exchanging virtual credits from forums and websites")
+        set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Bitcoin Nero Wallet - Private, Secure & Untraceable - Protection against inflation and excess liquidity.")
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}${CPACK_SYSTEM_NAME}")
     else()
         set(CPACK_GENERATOR RPM)
@@ -422,8 +422,8 @@ set(CPACK_PACKAGE_FILE_NAME "${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSIO
         set(CPACK_RPM_PACKAGE_LICENSE "MIT")
         set(CPACK_RPM_PACKAGE_GROUP Office)
         set(CPACK_RPM_PACKAGE_REQUIRES "qt5-qtbase >= 5.3.2, qt5-qtbase-gui >= 5.3.2")
-        set(CPACK_RPM_PACKAGE_SUMMARY "BBSCoin Wallet")
-        set(CPACK_RPM_PACKAGE_DESCRIPTION "BBSCoin Wallet - A cryptocurrency for exchanging virtual credits from forums and websites")
+        set(CPACK_RPM_PACKAGE_SUMMARY "Bitcoin Nero Wallet")
+        set(CPACK_RPM_PACKAGE_DESCRIPTION "Bitcoin Nero Wallet - Private, Secure & Untraceable - Protection against inflation and excess liquidity.")
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}${CPACK_SYSTEM_NAME}")
     endif ()
 elseif (WIN32)

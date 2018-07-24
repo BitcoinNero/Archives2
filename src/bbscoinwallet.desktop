@@ -1,10 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=BBSCoin Wallet
-Comment=BBSCoin wallet
-Exec=bbscoinwallet %U
+Name=Bitcoin Nero Wallet
+Comment=Bitcoin Nero wallet
+Exec=bitcoinnerowallet %U
 Terminal=false
 Type=Application
-Icon=bbscoin
-MimeType=x-scheme-handler/bbscoin;
+Icon=bitcoinnero
+MimeType=x-scheme-handler/bitcoinnero;
 Categories=Office;Finance;
